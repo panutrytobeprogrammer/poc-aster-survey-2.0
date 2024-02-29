@@ -19,12 +19,10 @@ function TextFieldCard({
   const [input, setInput] = useState<boolean>();
   const [answer, setAnswer] = useState<string>("");
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.length === 0) {
-      setInput(false);
-    } else {
-      setInput(true);
-    }
-    setAnswer(event.target.value);
+    const inputValue = event.target.value;
+    const hasInput = inputValue.trim().length > 0;
+    setInput(hasInput);
+    setAnswer(inputValue);
   };
 
   const onClickOkHandler = () => {
@@ -40,12 +38,7 @@ function TextFieldCard({
         <Typography>{description}</Typography>
         <Link href={link}>{link}</Link>
       </Box>
-      <TextField
-        label={question}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          onChangeHandler(event)
-        }
-      />
+      <TextField label={question} onChange={onChangeHandler} />
       <Box>{input ? <Button onClick={onClickOkHandler}>OK</Button> : ""}</Box>
     </Box>
   );
