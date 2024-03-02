@@ -9,6 +9,8 @@ type TextFieldProps = {
   link?: string;
 };
 
+// <TextFieldCard id={1} question="hahaha test question" require={true} />
+
 function TextFieldCard({
   id,
   question,
@@ -31,15 +33,14 @@ function TextFieldCard({
   return (
     <Box>
       <Typography fontWeight={700}>
-        {id}. {question}{" "}
-        <span style={{ color: "red" }}>{require ? "*" : ""}</span>
+        {id}. {question} {require && <span style={{ color: "red" }}>*</span>}
       </Typography>
       <Box>
         <Typography>{description}</Typography>
         <Link href={link}>{link}</Link>
       </Box>
       <TextField label={question} onChange={onChangeHandler} />
-      <Box>{input ? <Button onClick={onClickOkHandler}>OK</Button> : ""}</Box>
+      <Box>{input && <Button onClick={onClickOkHandler}>OK</Button>}</Box>
     </Box>
   );
 }
