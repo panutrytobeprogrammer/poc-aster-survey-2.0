@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     Typography,
   } from "@mui/material";
   import { useState } from "react";
@@ -19,11 +20,11 @@ import {
     required: boolean;
     imageRequired: boolean;
     title: string;
-    description: string;
+    description?: string;
     image: string;
     maxRate:number;
-    minRateDescription:string;
-    maxRateDescription:string;
+    minRateDescription?:string;
+    maxRateDescription?:string;
   }
   
   const RatingScore = ({
@@ -34,15 +35,15 @@ import {
     maxRate,
     minRateDescription,
     maxRateDescription}:RatingProps) => {
+
     const [rating,setRating]=useState(0)
     console.log(rating)
-    
-
+    let activeStyle="#fff"
 
     return ( 
         <>
         {imageRequired ? (
-            <img src={image} alt="required"></img>
+            <img style={{width:'250px'}} src={image} alt="required"></img>
         ) : (
             <img src={image}></img>
         )}
@@ -52,11 +53,23 @@ import {
         ) : (
             <Typography>{title}</Typography>
         )}
-        <Typography>{description}</Typography>
-        <Box sx={{border:1,display:"flex",gap:"2px"}}>
+        <Typography sx={{color:'#888'}}>{description}</Typography>
+        <Box sx={{display:"flex",gap:"4px"}}>
                 {Array.from({length:maxRate}).map((_,i)=>{
+                    if(rating==i+1){
+                        activeStyle="#999"
+                    }else{
+                        activeStyle="#fff"
+                    }
                 return(
-                    <button  onFocus={()=>setRating(i+1)}>{i+1}</button>
+                    <Button key={i} style={{background:`${activeStyle}`,
+                                    color:'#000',
+                                    border:'1px solid #777',
+                                    fontWeight:"bold",
+                                    fontSize:'20px',
+                                    padding:'1px'}}  
+                        onClick={()=>setRating(i+1)}>{i+1}
+                    </Button>
                 )
             })}
         </Box>
