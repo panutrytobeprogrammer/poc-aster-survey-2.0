@@ -30,7 +30,8 @@ const DropDownCard = ({
   const [age, setAge] = useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
+    const selectedValue = event.target.value;
+    setAge(selectedValue);
   };
 
   return (
